@@ -3,7 +3,7 @@
 </script>
 
 <template>
-  <p>I hate react</p>
+  <p class="text-3xl font-bold underline">I hate react</p>
 </template>
 
 <style scoped>
