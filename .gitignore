@@ -26,3 +26,4 @@ dist-ssr
 # Other Stuff
 node_modules
 .vscode
+.nvmrc
