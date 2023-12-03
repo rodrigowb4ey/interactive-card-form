@@ -20,6 +20,16 @@ const cardForm = ref<CardForm>({
 const submitForm = (formData: CardForm) => {
   console.log('Form submitted:', formData);
 };
+
+const formatCardNumber = (event: Event) => {
+  const inputElement = event.target as HTMLInputElement | null;
+  if (inputElement) {
+    const value = inputElement.value;
+    const cleanedValue = value.replace(/\D/g, '');
+    const formattedValue = cleanedValue.replace(/(\d{4})/g, '$1 ').trim();
+    cardForm.value.cardNumber = formattedValue;
+  }
+};
 </script>
 
 <template>
@@ -42,7 +52,7 @@ const submitForm = (formData: CardForm) => {
           <span
             class="text-white text-2xl absolute font-light bottom-16 left-6"
           >
-            0000 0000 0000 0000
+            {{ cardForm.cardNumber ? cardForm.cardNumber :  '0000 0000 0000 0000'}}
           </span>
           <span class="text-white absolute font-light text-sm bottom-4 left-6">
             {{ cardForm.name }}
@@ -88,6 +98,8 @@ const submitForm = (formData: CardForm) => {
             id="card-number"
             class="border-2 border-[#dedddf] rounded-md py-2 px-2"
             v-model="cardForm.cardNumber"
+            @input="formatCardNumber"
+            maxlength="19"
             placeholder="e.g. 1234 5678 9123 0000"
           />
         </section>
