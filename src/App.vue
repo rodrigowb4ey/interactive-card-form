@@ -4,17 +4,17 @@ import { ref } from 'vue';
 interface CardForm {
   name: string;
   cardNumber: string;
-  expDateMonth: number;
-  expDateYear: number;
-  cvc: number;
+  expDateMonth: string;
+  expDateYear: string;
+  cvc: string;
 }
 
 const cardForm = ref<CardForm>({
   name: '',
   cardNumber: '',
-  expDateMonth: 0,
-  expDateYear: 0,
-  cvc: 0
+  expDateMonth: '',
+  expDateYear: '',
+  cvc: ''
 });
 
 const submitForm = (formData: CardForm) => {
@@ -26,22 +26,26 @@ const submitForm = (formData: CardForm) => {
   <main class="flex">
     <section
       id="card-faces"
-      class="flex flex-col justify-around place-items-center border-2 border-blue-700 h-full w-1/2"
+      class="flex flex-col justify-around place-items-center h-full w-1/2 gap-12"
     >
-      <img
-        class="flex h-fit w-fit pr-16"
-        src="/assets/images/bg-card-front.png"
-        alt="Card Front"
-      />
-      <img
-        class="flex h-fit w-fit pr-16"
-        src="/assets/images/bg-card-back.png"
-        alt="Card Back"
-      />
+      <div class="flex h-1/2 w-full items-end justify-start" id="card-front">
+        <img
+          class="flex h-fit w-fit ml-24"
+          src="/assets/images/bg-card-front.png"
+          alt="Card Front"
+        />
+      </div>
+      <div class="flex h-1/2 w-full items-start justify-end" id="card-back">
+        <img
+          class="flex h-fit w-fit mr-24"
+          src="/assets/images/bg-card-back.png"
+          alt="Card Back"
+        />
+      </div>
     </section>
     <section
       id="card-form"
-      class="flex flex-col justify-around place-items-center border-2 border-red-700 h-full w-1/2"
+      class="flex flex-col justify-around place-items-center h-full w-1/2"
     >
       <form @submit.prevent="submitForm(cardForm)" class="flex flex-col gap-6 items-center justify-center h-5/6 w-3/4 text-[#21092f]">
         <section class="flex flex-col w-4/5 gap-1" id="card-field-name">
@@ -62,10 +66,10 @@ const submitForm = (formData: CardForm) => {
           </section>        
           <section class="flex flex-col w-1/2 gap-1" id="card-field-cvc">
             <label for="card-cvc">CVC</label>
-            <input class="border-2 border-[#dedddf] rounded-md py-2 px-3" id="card-cvc" v-model="cardForm.cvc">
+            <input class="border-2 border-[#dedddf] rounded-md py-2 px-3" id="card-cvc" v-model="cardForm.cvc" placeholder="e.g. 123">
           </section>
         </div>
-        <button class="w-4/5 py-4 border-2 rounded-md bg-[#21092f] text-white" type="submit">Confirm</button>
+        <button class="w-4/5 py-4 mt-8 border-2 rounded-md bg-[#21092f] text-white" type="submit">Confirm</button>
       </form>
     </section>
   </main>
