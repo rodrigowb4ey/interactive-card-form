@@ -29,15 +29,30 @@ const submitForm = (formData: CardForm) => {
       class="flex flex-col justify-around place-items-center h-full w-1/2 gap-12"
     >
       <div class="flex h-1/2 w-full items-end justify-start" id="card-front">
-        <img
-          class="flex h-fit w-fit ml-24"
-          src="/assets/images/bg-card-front.png"
-          alt="Card Front"
-        />
+        <div class="relative ml-24" id="card-front-img">
+          <img
+            class="h-fit w-fit"
+            src="/assets/images/bg-card-front.png"
+            alt="Card Front"
+          />
+          <img
+            class="absolute h-fit w-fit top-4 left-6"
+            src="/assets/images/card-logo.svg"
+          />
+          <span class="text-white text-2xl absolute font-light bottom-16 left-6">
+            0000 0000 0000 0000
+          </span>
+          <span class="text-white absolute font-light text-sm bottom-4 left-6">
+            {{ cardForm.name }}
+          </span>
+          <span class="text-white absolute font-light text-sm bottom-4 right-6">
+            00/00
+          </span>
+        </div>
       </div>
       <div class="flex h-1/2 w-full items-start justify-end" id="card-back">
         <img
-          class="flex h-fit w-fit mr-24"
+          class="h-fit w-fit mr-24"
           src="/assets/images/bg-card-back.png"
           alt="Card Back"
         />
