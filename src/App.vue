@@ -51,11 +51,16 @@ const submitForm = (formData: CardForm) => {
         </div>
       </div>
       <div class="flex h-1/2 w-full items-start justify-end" id="card-back">
-        <img
-          class="h-fit w-fit mr-24"
-          src="/assets/images/bg-card-back.png"
-          alt="Card Back"
-        />
+        <div class="relative mr-24" id="card-back-img">
+          <img
+            class="h-fit w-fit"
+            src="/assets/images/bg-card-back.png"
+            alt="Card Back"
+          />
+          <span class="text-white text-sm absolute font-light top-24 right-12">
+            000
+          </span>
+        </div>
       </div>
     </section>
     <section
