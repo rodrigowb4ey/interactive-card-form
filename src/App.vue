@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 
-interface CardForm {
+type CardForm = {
   name: string;
   cardNumber: string;
   expDateMonth: string;
@@ -30,6 +30,41 @@ const formatCardNumber = (event: Event) => {
     cardForm.value.cardNumber = formattedValue;
   }
 };
+
+const formatExpDateMonthNumber = (event: Event) => {
+  const inputElement = event.target as HTMLInputElement | null;
+  if (inputElement) {
+    const value = inputElement.value;
+    const cleanedValue = value.replace(/\D/g, '');
+    cardForm.value.expDateMonth = cleanedValue
+  }
+};
+
+const formatExpDateYearNumber = (event: Event) => {
+  const inputElement = event.target as HTMLInputElement | null;
+  if (inputElement) {
+    const value = inputElement.value;
+    const cleanedValue = value.replace(/\D/g, '');
+    cardForm.value.expDateYear = cleanedValue
+  }
+};
+
+const formatCvcNumber = (event: Event) => {
+  const inputElement = event.target as HTMLInputElement | null;
+  if (inputElement) {
+    const value = inputElement.value;
+    const cleanedValue = value.replace(/\D/g, '');
+    cardForm.value.cvc = cleanedValue
+  }
+};
+
+const formattedDateDisplay = computed(() => {
+  if (!cardForm.value.expDateMonth && !cardForm.value.expDateYear) {
+    return '00/00'
+  };
+
+  return `${cardForm.value.expDateMonth}/${cardForm.value.expDateYear}`;
+});
 </script>
 
 <template>
@@ -55,10 +90,10 @@ const formatCardNumber = (event: Event) => {
             {{ cardForm.cardNumber ? cardForm.cardNumber :  '0000 0000 0000 0000'}}
           </span>
           <span class="text-white absolute font-light text-sm bottom-4 left-6">
-            {{ cardForm.name }}
+            {{ cardForm.name.toUpperCase() }}
           </span>
           <span class="text-white absolute font-light text-sm bottom-4 right-6">
-            00/00
+            {{ formattedDateDisplay }}
           </span>
         </div>
       </div>
@@ -70,7 +105,7 @@ const formatCardNumber = (event: Event) => {
             alt="Card Back"
           />
           <span class="text-white text-sm absolute font-light top-24 right-12">
-            000
+            {{ cardForm.cvc ? cardForm.cvc : '000' }}
           </span>
         </div>
       </div>
@@ -111,12 +146,16 @@ const formatCardNumber = (event: Event) => {
                 class="border-2 border-[#dedddf] rounded-md w-3/5 px-3 py-2"
                 id="card-exp-date-month"
                 v-model="cardForm.expDateMonth"
+                @input="formatExpDateMonthNumber"
+                maxlength="2"
                 placeholder="MM"
               />
               <input
                 class="border-2 border-[#dedddf] rounded-md w-3/5 px-3 py-2"
                 id="card-exp-date-year"
                 v-model="cardForm.expDateYear"
+                @input="formatExpDateYearNumber"
+                maxlength="2"
                 placeholder="YY"
               />
             </div>
@@ -127,6 +166,8 @@ const formatCardNumber = (event: Event) => {
               class="border-2 border-[#dedddf] rounded-md py-2 px-3"
               id="card-cvc"
               v-model="cardForm.cvc"
+              @input="formatCvcNumber"
+              maxlength="3"
               placeholder="e.g. 123"
             />
           </section>
